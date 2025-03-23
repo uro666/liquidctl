@@ -27,7 +27,7 @@ BuildRequires:	python-smbus
 BuildRequires:	pyusb
 
 # Require the python and udev packages with the main package
-Requires: python3-%{name} = %{version}-%{release}
+Requires: python-%{name} = %{version}-%{release}
 Requires: %{name}-udev = %{version}-%{release}
 
 Suggests: %{name}-doc = %{version}-%{release}
