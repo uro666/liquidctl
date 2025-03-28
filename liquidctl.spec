@@ -118,7 +118,7 @@ install -Dpm 644 -t %{buildroot}%{_docdir}/%{name} CHANGELOG.md README.md LICENS
 cp -a docs/ %{buildroot}%{_docdir}/%{name}
 
 %check
-pytest tests/
+%{__python} -m pytest tests/
 
 %files
 %{_bindir}/%{name}
