@@ -1,6 +1,6 @@
 Name:		liquidctl
 Version:	1.14.0
-Release:	1
+Release:	2
 Source0:	https://files.pythonhosted.org/packages/source/l/%{name}/%{name}-%{version}.tar.gz
 Summary:	Cross-platform tool and drivers for liquid coolers and other devices
 URL:		https://github.com/liquidctl/liquidctl
@@ -11,19 +11,18 @@ BuildSystem:	python
 BuildArch:	noarch
 
 BuildRequires:	python
-BuildRequires:	python-setuptools
+BuildRequires:	python%{pyver}dist(setuptools)
 BuildRequires:	systemd-rpm-macros
 # for tests
-BuildRequires:	python-pytest
-BuildRequires:	python-setuptools_scm
-BuildRequires:	python-wheel
-BuildRequires:	python-colorlog
-BuildRequires:	python-crcmod >= 1.7
-BuildRequires:	python-docopt
-BuildRequires:	python-hidapi
-# python-imaging aka pillow
-BuildRequires:	python-imaging
-BuildRequires:	python-smbus
+BuildRequires:	python%{pyver}dist(pytest)
+BuildRequires:	python%{pyver}dist(setuptools-scm)
+BuildRequires:	python%{pyver}dist(wheel)
+BuildRequires:	python%{pyver}dist(colorlog)
+BuildRequires:	python%{pyver}dist(crcmod)
+BuildRequires:	python%{pyver}dist(docopt)
+BuildRequires:	python%{pyver}dist(hidapi)
+BuildRequires:	python%{pyver}dist(pillow)
+BuildRequires:	python%{pyver}dist(smbus)
 BuildRequires:	pyusb
 
 # Require the python and udev packages with the main package
@@ -43,13 +42,12 @@ https://github.com/liquidctl/liquidctl#supported-devices
 Summary: Module for controlling liquid coolers, case fans and RGB LED devices
 Requires:	lib64usb1.0_0
 Requires:	python >= 3.9
-Requires:	python-colorlog
-Requires:	python-crcmod >= 1.7
-Requires:	python-docopt
-Requires:	python-hidapi
-# python-imaging aka pillow
-Requires:	python-imaging
-Requires:	python-smbus
+Requires:	python%{pyver}dist(colorlog)
+Requires:	python%{pyver}dist(crcmod)
+Requires:	python%{pyver}dist(docopt)
+Requires:	python%{pyver}dist(hidapi)
+Requires:	python%{pyver}dist(pillow)
+Requires:	python%{pyver}dist(smbus)
 Requires:	pyusb
 
 Suggests:	%{name}-udev = %{version}-%{release}
@@ -114,10 +112,13 @@ install -dpm 0755 %{buildroot}%{_mandir}/man8
 zstd -r --rm %_vpath_builddir/man/man8
 mv %_vpath_builddir/man/man8 %{buildroot}%{_mandir}
 
-install -Dp -m 644 extra/completions/liquidctl.bash %{buildroot}%{_datadir}/bash-completion/completions/%{name}
-install -Dp -m 644 extra/linux/71-%{name}.rules %{buildroot}%{_udevrulesdir}/71-%{name}.rules
-install -Dp -m 644 -t %{buildroot}%{_docdir}/%{name} CHANGELOG.md README.md LICENSE.txt
+install -Dpm 644 extra/completions/liquidctl.bash %{buildroot}%{_datadir}/bash-completion/completions/%{name}
+install -Dpm 644 extra/linux/71-%{name}.rules %{buildroot}%{_udevrulesdir}/71-%{name}.rules
+install -Dpm 644 -t %{buildroot}%{_docdir}/%{name} CHANGELOG.md README.md LICENSE.txt
 cp -a docs/ %{buildroot}%{_docdir}/%{name}
+
+%check
+pytest tests/
 
 %files
 %{_bindir}/%{name}
