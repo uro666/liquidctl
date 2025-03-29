@@ -12,11 +12,18 @@ BuildArch:	noarch
 
 BuildRequires:	python
 BuildRequires:	python%{pyver}dist(setuptools)
+BuildRequires:	python%{pyver}dist(setuptools-scm)
+BuildRequires:	python%{pyver}dist(wheel)
 BuildRequires:	systemd-rpm-macros
 # for tests
 BuildRequires:	python%{pyver}dist(pytest)
-BuildRequires:	python%{pyver}dist(setuptools-scm)
-BuildRequires:	python%{pyver}dist(wheel)
+BuildRequires:	python%{pyver}dist(pluggy)
+BuildRequires:	python%{pyver}dist(hypothesis)
+BuildRequires:	python%{pyver}dist(pytest-asyncio)
+BuildRequires:	python%{pyver}dist(pytest-randomly)
+BuildRequires:	python%{pyver}dist(pytest-forked)
+BuildRequires:	python%{pyver}dist(pytest-flake8)
+BuildRequires:	python%{pyver}dist(pytest-mock)
 BuildRequires:	python%{pyver}dist(colorlog)
 BuildRequires:	python%{pyver}dist(crcmod)
 BuildRequires:	python%{pyver}dist(docopt)
