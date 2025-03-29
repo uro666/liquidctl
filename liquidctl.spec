@@ -1,3 +1,5 @@
+%bcond_with test
+
 Name:		liquidctl
 Version:	1.14.0
 Release:	2
@@ -124,8 +126,11 @@ install -Dpm 644 extra/linux/71-%{name}.rules %{buildroot}%{_udevrulesdir}/71-%{
 install -Dpm 644 -t %{buildroot}%{_docdir}/%{name} CHANGELOG.md README.md LICENSE.txt
 cp -a docs/ %{buildroot}%{_docdir}/%{name}
 
+# tests run locally, disabled for abf.
+%if %{with test}
 %check
 %{__python} -m pytest tests/
+%endif
 
 %files
 %{_bindir}/%{name}
